@@ -1,12 +1,15 @@
 import bcrypt from 'bcrypt';
 import { HASH_SALT_ROUNDS } from '../constants/auth.constant.js';
-import { prisma } from '../utils/prisma.util.js';
 
 export class UsersRepository {
+  constructor(prisma) {
+    this.prisma = prisma;
+  }
+
   create = async ({ email, password, name }) => {
     const hashedPassword = bcrypt.hashSync(password, HASH_SALT_ROUNDS);
 
-    const data = await prisma.user.create({
+    const data = await this.prisma.user.create({
       data: {
         email,
         password: hashedPassword,
@@ -19,13 +22,13 @@ export class UsersRepository {
   };
 
   readOneByEmail = async (email) => {
-    const data = await prisma.user.findUnique({ where: { email } });
+    const data = await this.prisma.user.findUnique({ where: { email } });
 
     return data;
   };
 
   readOneById = async (id) => {
-    const data = await prisma.user.findUnique({
+    const data = await this.prisma.user.findUnique({
       where: { id },
       omit: { password: true },
     });

@@ -1,8 +1,10 @@
-import { prisma } from '../utils/prisma.util.js';
-
 export class ResumesRepository {
+  constructor(prisma) {
+    this.prisma = prisma;
+  }
+
   create = async ({ authorId, title, content }) => {
-    const data = await prisma.resume.create({
+    const data = await this.prisma.resume.create({
       data: {
         authorId,
         title,
@@ -13,7 +15,7 @@ export class ResumesRepository {
     return data;
   };
   readMany = async ({ authorId, sort }) => {
-    let data = await prisma.resume.findMany({
+    let data = await this.prisma.resume.findMany({
       where: { authorId },
       orderBy: {
         createdAt: sort,
@@ -38,7 +40,7 @@ export class ResumesRepository {
     return data;
   };
   readOne = async ({ id, authorId, includeAuthor = false }) => {
-    let data = await prisma.resume.findUnique({
+    let data = await this.prisma.resume.findUnique({
       where: { id: +id, authorId },
       include: { author: includeAuthor },
     });
@@ -59,7 +61,7 @@ export class ResumesRepository {
   };
 
   update = async ({ id, authorId, title, content }) => {
-    const data = await prisma.resume.update({
+    const data = await this.prisma.resume.update({
       where: { id: +id, authorId },
       data: {
         ...(title && { title }),
@@ -71,7 +73,7 @@ export class ResumesRepository {
   };
 
   delete = async ({ id, authorId }) => {
-    const data = await prisma.resume.delete({
+    const data = await this.prisma.resume.delete({
       where: { id: +id, authorId },
     });
 

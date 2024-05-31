@@ -1,17 +1,22 @@
 import { HTTP_STATUS } from '../constants/http-status.constant.js';
 import { MESSAGES } from '../constants/message.constant.js';
-import { ResumesService } from '../services/resumes.service.js';
-
-const resumesService = new ResumesService();
 
 export class ResumesController {
+  constructor(resumesService) {
+    this.resumesService = resumesService;
+  }
+
   create = async (req, res, next) => {
     try {
       const user = req.user;
       const { title, content } = req.body;
       const authorId = user.id;
 
-      const data = await resumesService.create({ authorId, title, content });
+      const data = await this.resumesService.create({
+        authorId,
+        title,
+        content,
+      });
 
       return res.status(HTTP_STATUS.CREATED).json({
         status: HTTP_STATUS.CREATED,
@@ -36,7 +41,7 @@ export class ResumesController {
         sort = 'desc';
       }
 
-      const data = await resumesService.readMany({ authorId, sort });
+      const data = await this.resumesService.readMany({ authorId, sort });
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
@@ -54,7 +59,7 @@ export class ResumesController {
       const authorId = user.id;
       const { id } = req.params;
 
-      const data = await resumesService.readOne({ id, authorId });
+      const data = await this.resumesService.readOne({ id, authorId });
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
@@ -73,7 +78,7 @@ export class ResumesController {
       const { id } = req.params;
       const { title, content } = req.body;
 
-      const data = await resumesService.update({
+      const data = await this.resumesService.update({
         id,
         authorId,
         title,
@@ -96,7 +101,7 @@ export class ResumesController {
       const authorId = user.id;
       const { id } = req.params;
 
-      const data = await resumesService.delete({ id, authorId });
+      const data = await this.resumesService.delete({ id, authorId });
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
