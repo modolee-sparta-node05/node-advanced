@@ -32,8 +32,8 @@ yarn dev
 
 # API 명세서
 
-https://modolee.notion.site/08dfa1c84e594f188a08934967fcbd39
+https://modolee.notion.site/78aef426bed046338ee76802132e847c
 
 # ERD
 
-https://drawsql.app/teams/team-modolee/diagrams/sparta-node-intermediate-2
+https://drawsql.app/teams/team-modolee/diagrams/sparta-node-advanced
