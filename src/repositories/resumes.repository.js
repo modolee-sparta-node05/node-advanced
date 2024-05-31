@@ -43,15 +43,17 @@ export class ResumesRepository {
       include: { author: includeAuthor },
     });
 
-    data = {
-      id: data.id,
-      authorName: data.author.name,
-      title: data.title,
-      content: data.content,
-      status: data.status,
-      createdAt: data.createdAt,
-      updatedAt: data.updatedAt,
-    };
+    if (includeAuthor) {
+      data = {
+        id: data.id,
+        authorName: data.author.name,
+        title: data.title,
+        content: data.content,
+        status: data.status,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt,
+      };
+    }
 
     return data;
   };
