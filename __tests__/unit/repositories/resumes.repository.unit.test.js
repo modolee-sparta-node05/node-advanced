@@ -45,7 +45,7 @@ describe('ResumesRepository Unit Test', () => {
     const expectedResult = mockReturn;
 
     expect(mockPrisma.resume.create).toHaveBeenCalledTimes(1);
-    expect(mockPrisma.resume.create).toBeCalledWith({
+    expect(mockPrisma.resume.create).toHaveBeenCalledWith({
       data: {
         authorId,
         title,
@@ -81,7 +81,7 @@ describe('ResumesRepository Unit Test', () => {
     });
 
     expect(mockPrisma.resume.findMany).toHaveBeenCalledTimes(1);
-    expect(mockPrisma.resume.findMany).toBeCalledWith({
+    expect(mockPrisma.resume.findMany).toHaveBeenCalledWith({
       where: { authorId },
       orderBy: {
         createdAt: sort,
@@ -117,7 +117,7 @@ describe('ResumesRepository Unit Test', () => {
     };
 
     expect(mockPrisma.resume.findUnique).toHaveBeenCalledTimes(1);
-    expect(mockPrisma.resume.findUnique).toBeCalledWith({
+    expect(mockPrisma.resume.findUnique).toHaveBeenCalledWith({
       where: { id: +id, authorId },
       include: { author: includeAuthor },
     });
@@ -143,7 +143,7 @@ describe('ResumesRepository Unit Test', () => {
     const expectedResult = mockReturn;
 
     expect(mockPrisma.resume.findUnique).toHaveBeenCalledTimes(1);
-    expect(mockPrisma.resume.findUnique).toBeCalledWith({
+    expect(mockPrisma.resume.findUnique).toHaveBeenCalledWith({
       where: { id: +id, authorId },
       include: { author: includeAuthor },
     });
@@ -176,7 +176,7 @@ describe('ResumesRepository Unit Test', () => {
     const expectedResult = mockReturn;
 
     expect(mockPrisma.resume.update).toHaveBeenCalledTimes(1);
-    expect(mockPrisma.resume.update).toBeCalledWith({
+    expect(mockPrisma.resume.update).toHaveBeenCalledWith({
       where: { id: +id, authorId },
       data: {
         title,
@@ -210,7 +210,7 @@ describe('ResumesRepository Unit Test', () => {
     const expectedResult = mockReturn;
 
     expect(mockPrisma.resume.update).toHaveBeenCalledTimes(1);
-    expect(mockPrisma.resume.update).toBeCalledWith({
+    expect(mockPrisma.resume.update).toHaveBeenCalledWith({
       where: { id: +id, authorId },
       data: {
         title,
@@ -244,7 +244,7 @@ describe('ResumesRepository Unit Test', () => {
     const expectedResult = mockReturn;
 
     expect(mockPrisma.resume.update).toHaveBeenCalledTimes(1);
-    expect(mockPrisma.resume.update).toBeCalledWith({
+    expect(mockPrisma.resume.update).toHaveBeenCalledWith({
       where: { id: +id, authorId },
       data: {
         content,
@@ -272,7 +272,7 @@ describe('ResumesRepository Unit Test', () => {
     };
 
     expect(mockPrisma.resume.delete).toHaveBeenCalledTimes(1);
-    expect(mockPrisma.resume.delete).toBeCalledWith({
+    expect(mockPrisma.resume.delete).toHaveBeenCalledWith({
       where: { id: +id, authorId },
     });
     expect(actualResult).toEqual(expectedResult);
