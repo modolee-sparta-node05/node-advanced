@@ -222,7 +222,7 @@ describe('ResumesService Unit Test', () => {
     const authorId = 1;
     const mockReadOneReturn = dummyResumes[+id];
     const mockDeleteReturn = {
-      id: dummyResumes[+id],
+      id: dummyResumes[+id].id,
     };
     mockResumesRepository.readOne.mockReturnValue(mockReadOneReturn);
     mockResumesRepository.delete.mockReturnValue(mockDeleteReturn);
@@ -256,7 +256,7 @@ describe('ResumesService Unit Test', () => {
     const authorId = 1;
     const mockReadOneReturn = null;
     const mockDeleteReturn = {
-      id: dummyResumes[+id],
+      id: dummyResumes[+id].id,
     };
     mockResumesRepository.readOne.mockReturnValue(mockReadOneReturn);
     mockResumesRepository.delete.mockReturnValue(mockDeleteReturn);
