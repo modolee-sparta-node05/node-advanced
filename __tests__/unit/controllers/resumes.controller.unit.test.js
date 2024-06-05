@@ -224,7 +224,7 @@ describe('ResumesController Unit Test', () => {
     const id = '1';
     const mockParams = { id };
     const mockReturn = {
-      id,
+      id: dummyResumes[+id].id,
     };
 
     mockRequest.user = mockUser;
