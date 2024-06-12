@@ -10,6 +10,14 @@ const mockPrisma = {
     findUnique: jest.fn(),
   },
 };
+jest.mock(bcrypt, () => {
+  return {
+    __esModule: true,
+    default: {
+      hashSync: jest.fn(),
+    },
+  };
+});
 
 const usersRepository = new UsersRepository(mockPrisma);
 
@@ -23,7 +31,8 @@ describe('UsersRepository Unit Test', () => {
     const { email, password, name } = dummyUsers[0];
     const mockHashedPassword =
       '$2b$10$ZOEFG.7Nm121DH9zHq0OzuCudi6SslQ/Nb60mSV71GObhUtiBsteK';
-    jest.spyOn(bcrypt, 'hashSync').mockImplementation(() => mockHashedPassword);
+    bcrypt.hashSync.mockReturnValue(mockHashedPassword);
+    // jest.spyOn(bcrypt, 'hashSync').mockImplementation(() => mockHashedPassword);
 
     const hashedPassword = bcrypt.hashSync(password, HASH_SALT_ROUNDS);
 
