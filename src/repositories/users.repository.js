@@ -15,7 +15,7 @@ export class UsersRepository {
         password: hashedPassword,
         name,
       },
-      omit: { password: true },
+      // omit: { password: true },
     });
 
     return data;
