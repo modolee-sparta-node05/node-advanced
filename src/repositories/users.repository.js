@@ -9,6 +9,8 @@ export class UsersRepository {
   create = async ({ email, password, name }) => {
     const hashedPassword = bcrypt.hashSync(password, HASH_SALT_ROUNDS);
 
+    console.log('code:', { hashedPassword });
+
     const data = await this.prisma.user.create({
       data: {
         email,

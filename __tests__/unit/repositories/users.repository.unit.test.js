@@ -1,8 +1,6 @@
 import { beforeEach, describe, jest, test, expect } from '@jest/globals';
 import { dummyUsers } from '../../dummies/users.dummy.js';
-import { UsersRepository } from '../../../src/repositories/users.repository.js';
 import { HASH_SALT_ROUNDS } from '../../../src/constants/auth.constant.js';
-import bcrypt from 'bcrypt';
 
 const mockPrisma = {
   user: {
@@ -10,7 +8,9 @@ const mockPrisma = {
     findUnique: jest.fn(),
   },
 };
-jest.mock(bcrypt, () => {
+
+// https://jestjs.io/docs/ecmascript-modules#module-mocking-in-esm
+jest.unstable_mockModule('bcrypt', () => {
   return {
     __esModule: true,
     default: {
@@ -18,6 +18,11 @@ jest.mock(bcrypt, () => {
     },
   };
 });
+
+// https://github.com/jestjs/jest/issues/10025#issuecomment-1879784754
+const { UsersRepository } = await import(
+  '../../../src/repositories/users.repository.js'
+);
 
 const usersRepository = new UsersRepository(mockPrisma);
 
@@ -29,12 +34,17 @@ describe('UsersRepository Unit Test', () => {
   test('create Method', async () => {
     // GIVEN
     const { email, password, name } = dummyUsers[0];
+
     const mockHashedPassword =
       '$2b$10$ZOEFG.7Nm121DH9zHq0OzuCudi6SslQ/Nb60mSV71GObhUtiBsteK';
+    const bcrypt = (await import('bcrypt')).default;
+
+    console.log({ bcrypt });
     bcrypt.hashSync.mockReturnValue(mockHashedPassword);
-    // jest.spyOn(bcrypt, 'hashSync').mockImplementation(() => mockHashedPassword);
 
     const hashedPassword = bcrypt.hashSync(password, HASH_SALT_ROUNDS);
+
+    console.log('test:', { hashedPassword });
 
     const mockReturn = {
       id: 100,
