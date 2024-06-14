@@ -1,7 +1,7 @@
 import express from 'express';
 import { prisma } from '../utils/prisma.util.js';
 import { createResumeValidator } from '../middlewares/validators/create-resume-validator.middleware.js';
-import { updateResumeValidator } from '../middlewares/validators/updated-resume-validator.middleware.js';
+import { updateResumeValidator } from '../middlewares/validators/update-resume-validator.middleware.js';
 import { ResumesController } from '../controllers/resumes.controller.js';
 import { ResumesRepository } from '../repositories/resumes.repository.js';
 import { ResumesService } from '../services/resumes.service.js';
